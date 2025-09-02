@@ -6,6 +6,10 @@ using MathNet.Numerics;
 using NCalc;
 using MITSCalculator.Core;
 using MITSCalculator.Views;
+using MITSCalculator.UI;
+using MITSCalculator.Data;
+using MITSCalculator.Statistics;
+using MITSCalculator.Plugins;
 
 namespace MITSCalculator;
 
@@ -18,15 +22,37 @@ public partial class MainWindow : Avalonia.Controls.Window
     private string _expression = "";
     private readonly MathEngine _mathEngine;
     private readonly ExpressionParser _parser;
+    private readonly StatisticalEngine _statisticalEngine;
+    private readonly DatabaseManager _databaseManager;
+    private readonly ThemeManager _themeManager;
+    private readonly PluginManager _pluginManager;
     private CalculatorMode _currentMode = CalculatorMode.Standard;
-    private SpecializedModeView _modeView;
+    private ModularPanelSystem _panelSystem;
 
     public MainWindow()
     {
         InitializeComponent();
+        
+        // Initialize core components
         _mathEngine = new MathEngine();
         _parser = new ExpressionParser(_mathEngine);
-        _modeView = new SpecializedModeView(_mathEngine);
+        _statisticalEngine = new StatisticalEngine();
+        _databaseManager = new DatabaseManager();
+        _themeManager = new ThemeManager();
+        _pluginManager = new PluginManager();
+        
+        // Initialize modular panel system
+        _panelSystem = new ModularPanelSystem(_mathEngine, _statisticalEngine);
+        
+        // Set up the UI
+        SetupMainInterface();
+        
+        // Apply theme
+        _themeManager.ApplyTheme("Dark");
+        
+        // Load plugins
+        _pluginManager.LoadAllPlugins();
+        
         UpdateDisplay();
     }
 
@@ -237,5 +263,70 @@ public partial class MainWindow : Avalonia.Controls.Window
             _expression = ex.Message;
             UpdateDisplay();
         }
+    }
+
+    private void SetupMainInterface()
+    {
+        // Replace the existing content with the modular panel system
+        var mainGrid = new Grid
+        {
+            RowDefinitions = new RowDefinitions("Auto,*")
+        };
+
+        // Menu bar
+        var menuBar = CreateMenuBar();
+        Grid.SetRow(menuBar, 0);
+        mainGrid.Children.Add(menuBar);
+
+        // Panel system
+        Grid.SetRow(_panelSystem, 1);
+        mainGrid.Children.Add(_panelSystem);
+
+        Content = mainGrid;
+    }
+
+    private Menu CreateMenuBar()
+    {
+        var menuBar = new Menu();
+
+        // File menu
+        var fileMenu = new MenuItem { Header = "File" };
+        fileMenu.Items.Add(new MenuItem { Header = "New Workspace" });
+        fileMenu.Items.Add(new MenuItem { Header = "Save Workspace" });
+        fileMenu.Items.Add(new MenuItem { Header = "Load Workspace" });
+        fileMenu.Items.Add(new Separator());
+        fileMenu.Items.Add(new MenuItem { Header = "Exit" });
+
+        // View menu
+        var viewMenu = new MenuItem { Header = "View" };
+        var themeSubmenu = new MenuItem { Header = "Theme" };
+        themeSubmenu.Items.Add(new MenuItem { Header = "Light" });
+        themeSubmenu.Items.Add(new MenuItem { Header = "Dark" });
+        viewMenu.Items.Add(themeSubmenu);
+
+        // Tools menu
+        var toolsMenu = new MenuItem { Header = "Tools" };
+        toolsMenu.Items.Add(new MenuItem { Header = "Physics Simulator" });
+        toolsMenu.Items.Add(new MenuItem { Header = "Chemistry Tools" });
+        toolsMenu.Items.Add(new MenuItem { Header = "Plugin Manager" });
+
+        // Help menu
+        var helpMenu = new MenuItem { Header = "Help" };
+        helpMenu.Items.Add(new MenuItem { Header = "About" });
+
+        menuBar.Items.Add(fileMenu);
+        menuBar.Items.Add(viewMenu);
+        menuBar.Items.Add(toolsMenu);
+        menuBar.Items.Add(helpMenu);
+
+        return menuBar;
+    }
+
+    protected override void OnClosing(WindowClosingEventArgs e)
+    {
+        // Cleanup resources
+        _pluginManager?.Dispose();
+        _databaseManager?.Dispose();
+        base.OnClosing(e);
     }
 }
