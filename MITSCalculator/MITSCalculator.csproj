@@ -14,7 +14,7 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.4" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.8" />
-    <PackageReference Include="NCalc2" Version="2.1.2" />
+    <PackageReference Include="NCalc2" Version="2.1.0" />
     <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0" />
   </ItemGroup>
 
