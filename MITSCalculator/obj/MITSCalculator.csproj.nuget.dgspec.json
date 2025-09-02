@@ -65,7 +65,7 @@
             },
             "NCalc2": {
               "target": "Package",
-              "version": "[2.1.2, )"
+              "version": "[2.1.0, )"
             },
             "OxyPlot.Avalonia": {
               "target": "Package",
