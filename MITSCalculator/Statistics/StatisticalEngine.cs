@@ -44,6 +44,46 @@ public class StatisticalEngine
         return frequency.Where(kv => kv.Value == maxFrequency).Select(kv => kv.Key).ToArray();
     }
 
+    // Add CalculateDescriptiveStatistics method
+    public DescriptiveStatistics CalculateDescriptiveStatistics(double[] values)
+    {
+        if (values == null || values.Length == 0)
+            throw new ArgumentException("Values array cannot be null or empty");
+
+        var sorted = values.OrderBy(x => x).ToArray();
+
+        return new DescriptiveStatistics
+        {
+            Mean = values.Average(),
+            Median = CalculateMedian(sorted),
+            StandardDeviation = CalculateStandardDeviation(values),
+            Variance = CalculateVariance(values),
+            Min = values.Min(),
+            Max = values.Max(),
+            Count = values.Length
+        };
+    }
+
+    private double CalculateMedian(double[] sortedValues)
+    {
+        int n = sortedValues.Length;
+        if (n % 2 == 0)
+            return (sortedValues[n / 2 - 1] + sortedValues[n / 2]) / 2.0;
+        else
+            return sortedValues[n / 2];
+    }
+
+    private double CalculateStandardDeviation(double[] values)
+    {
+        return Math.Sqrt(CalculateVariance(values));
+    }
+
+    private double CalculateVariance(double[] values)
+    {
+        double mean = values.Average();
+        return values.Select(x => Math.Pow(x - mean, 2)).Average();
+    }
+
     // Probability Distributions
     public double NormalPdf(double x, double mean = 0, double stdDev = 1)
     {
@@ -106,13 +146,13 @@ public class StatisticalEngine
         var sampleMean = sample.Mean();
         var sampleStdDev = sample.StandardDeviation();
         var standardError = sampleStdDev / Math.Sqrt(n);
-        
+
         var tStatistic = (sampleMean - populationMean) / standardError;
         var degreesOfFreedom = n - 1;
-        
+
         var tDist = new StudentT(0, 1, degreesOfFreedom);
         var pValue = 2 * (1 - tDist.CumulativeDistribution(Math.Abs(tStatistic)));
-        
+
         var criticalValue = tDist.InverseCumulativeDistribution(1 - alpha / 2);
         var rejectNull = Math.Abs(tStatistic) > criticalValue;
 
@@ -157,7 +197,7 @@ public class StatisticalEngine
         }
 
         tStatistic = (mean1 - mean2) / standardError;
-        
+
         var tDist = new StudentT(0, 1, degreesOfFreedom);
         var pValue = 2 * (1 - tDist.CumulativeDistribution(Math.Abs(tStatistic)));
         var criticalValue = tDist.InverseCumulativeDistribution(1 - alpha / 2);
@@ -348,6 +388,18 @@ public class StatisticalSummary
     public double Q1 { get; set; }
     public double Q3 { get; set; }
     public double IQR { get; set; }
+}
+
+// Define DescriptiveStatistics class
+public class DescriptiveStatistics
+{
+    public double Mean { get; set; }
+    public double Median { get; set; }
+    public double StandardDeviation { get; set; }
+    public double Variance { get; set; }
+    public double Min { get; set; }
+    public double Max { get; set; }
+    public int Count { get; set; }
 }
 
 public class TTestResult

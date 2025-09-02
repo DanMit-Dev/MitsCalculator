@@ -135,7 +135,7 @@ public class ExpressionParser
             expression = ProcessFunctions(expression);
             
             // Simple arithmetic evaluation using NCalc
-            var evaluator = new NCalc.Expression(expression);
+            var evaluator = new NCalc2.Expression(expression);
             var result = evaluator.Evaluate();
             
             if (result is double d)
@@ -194,7 +194,7 @@ public class ExpressionParser
         // Try to evaluate as a simple expression
         try
         {
-            var evaluator = new NCalc.Expression(expression);
+            var evaluator = new NCalc2.Expression(expression);
             var result = evaluator.Evaluate();
             return Convert.ToDouble(result);
         }
