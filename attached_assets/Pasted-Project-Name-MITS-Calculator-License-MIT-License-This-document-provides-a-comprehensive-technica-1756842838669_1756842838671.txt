@@ -1,0 +1,181 @@
+Project Name: MITS Calculator
+License: MIT License
+This document provides a comprehensive technical overview for the MITS Calculator project. It is designed to be a self-contained, standalone desktop application for Linux with a "local-first" and 100% offline philosophy.
+
+#1. Core Philosophy: The Triple Focus
+Personal Mathematics: The calculator adapts to the user. Privacy, extreme customization, and the instantaneous speed of local processing are at its heart.
+
+Living Mathematics: Mathematics is an experience. The tool is designed for exploring, visualizing, and interacting with concepts, transforming calculation into discovery.
+
+Universal Mathematics: The tool is for everyone. With a focus on accessibility and an open plugin ecosystem, the calculator is a platform that grows and adapts to any need.
+
+#2. Architecture and Technology Stack
+The MITS Calculator is a pure standalone desktop application for Linux. All logic and data reside locally on the user's machine, and no custom backend or internet connection is required for core functionality.
+
+Core Framework: .NET 8 with Avalonia UI to create a cross-platform desktop application using C# and a flexible, XAML-based UI framework.
+
+Programming Language: C# for type safety and scalability.
+
+Styling: A utility-first styling approach will be implemented using a custom theme or a library like Avalonia.Controls.SimpleTheme for a clean, highly customizable design system. The application will feature two core themes, a Light Mode and a Dark Mode, and the colors will be defined using CSS variables for easy user customization. The dark theme will use a palette of deep grays and blues, while the light theme will use a clean palette of light grays and whites.
+
+Database: SQLite for all local data persistence (history, variables, formulas, settings). The application will interact with the database file via a C# library like Microsoft.Data.Sqlite.
+
+Mathematical Engine:
+
+Math.NET Numerics: For core functionality including basic arithmetic, complex numbers, matrices, unit conversions, and a robust expression parser.
+
+SymPySharp or NCalc: For highly specialized tasks like the Computer Algebra System (CAS) and symbolic math, a specialized C# library will be used for high performance.
+
+Graphing and Visualization:
+
+OxyPlot or ScottPlot: For 2D and statistical plotting.
+
+Helix Toolkit: For all 3D function plotting, simulations, and AR features.
+
+Hardware and AI Acceleration: The calculator will use GPU acceleration for complex algebra, matrix calculations, and 3D graphics, ensuring instantaneous performance on demanding tasks. It will also include a resource optimization algorithm that detects the device's capabilities and adjusts the complexity of simulations, such as the frame rate of 3D graphics or the number of simulated particles, to ensure smooth performance even on older hardware.
+
+#3. Local Data Persistence: The Offline Core
+All application data is stored in a single SQLite database file (user_data.db) located in the user's local application support directory. This ensures all data is private, portable, and fully offline.
+
+Local Database Schema: A relational structure will be used to store user data.
+
+History Table: id, expression, result, timestamp
+
+Variables Table: id, name, value, is_custom_function
+
+Formulas Table: id, name, expression, variables
+
+Settings Table: key, value (for UI state, themes, etc.)
+
+Projects Table: id, name, project_data_json, timestamp
+
+Security and Privacy: Data encryption will use professional-grade algorithms like AES-256. The application and the local AI model (Gemma 3 4B) will run in separate, secure sandboxes to prevent unauthorized file system access. Users can enter a Privacy and Security Audit Mode at any time to see exactly what data is stored locally and delete it with a single click.
+
+Smart Updates and Data Cache: The calculator will have the ability to download and store the latest data (such as the Periodic Table, exchange rates, and physical constants) whenever an internet connection is available. This ensures data is always fresh while maintaining the offline-first functionality and eliminating the need for constant updates.
+
+##4. Development Modules and Features
+This section maps all the requested features to a modular development plan.
+
+#4.1 Module 1: Core Engine & UI Shell
+UI Framework: Modular panel system, drag-and-drop workspaces, theme engine. The design will be clean and modern, with subtle gradients, soft shadows, and rounded corners. The UI will be built on a scalable grid system. A core part of the theme engine is the use of a clean, sans-serif font like Inter for all text. The AI can be used to generate new themes by analyzing color palettes or images.
+
+Input System: On-screen buttons, keyboard input mapping, natural language parser, and touch gesture support.
+
+Basic Math: Addition, subtraction, multiplication, division, parentheses, operator precedence, exponentiation (x 
+y
+ ), square root, cube root, factorial (n!), modulo, and absolute value.
+
+Analysis: Logarithms, trigonometric functions, inverse and hyperbolic functions.
+
+Numbers: Fractions with simplification, complex numbers (a+bi), scientific notation, and floating-point precision control.
+
+Linear Algebra: Matrix and vector operations, including multiplication, inversion, determinant, eigenvalues, and eigenvectors.
+
+Symbolic Math and Advanced Analysis: Simplification of expressions, solving integrals and derivatives exactly, and Taylor and Maclaurin series expansions.
+
+Advanced Matrix Calculus: Eigenvalues, eigenvectors, and matrix decompositions (LU, QR).
+
+Numerical Analysis: Solving differential equations (ordinary and partial), non-linear systems, and finding roots of equations (Newton-Raphson Method, Bisection).
+
+Vector and Multivariable Calculus: Multiple integrals, partial derivatives, and manipulation of vector fields.
+
+Special Functions: Engineering and applied mathematics functions, such as Bessel, Gamma, and Zeta.
+
+Advanced Formula System: A vast offline database of pre-loaded formulas from physics, chemistry, engineering, and finance. Users can create, save, and personalize their own formulas, with the ability to solve for any variable and automatic unit management.
+
+Usability: Undo/redo history, customizable precision, natural language support for data entry, error highlighting, and haptic feedback.
+
+Full Accessibility: Support for screen readers, keyboard navigation, and high-contrast modes. The interface is scalable to accommodate different screen sizes and visual needs.
+
+Learning and Discovery: An "Explain This Concept" mode that uses the offline AI to provide simple, offline explanations of functions or constants.
+
+#4.2 Module 2: Specialized Calculation Modes
+Modes: Scientific, financial, programming, and engineering modes with specific functions.
+
+Programming and Customization: Support for languages like Python, TI-Basic, or an internal Pascal. Includes an interactive regular expression analyzer, hashing and encoding functions, and advanced bit manipulation.
+
+Financial Engineering: Calculation of cash flow (NPV, IRR), amortization tables, and cost-benefit analysis. Includes historical exchange rate tools.
+
+Unit Conversions: Conversion between units of length, mass, volume, temperature, time, speed, energy, currencies, and scientific/technical units.
+
+Constants: Built-in constants (π, e, golden ratio, physical constants) and customizable constants.
+
+Data Structure Visualization: Visual representation of arrays, lists, trees, and stacks.
+
+#4.3 Module 3: Graphing and Data Visualization
+Function Plotting: Plotting of functions in 2D and 3D with real-time zoom and rotation.
+
+Graphic Animation: Animation of parametric curves, surfaces, and graphs.
+
+Data Analysis: Overlay of statistical data and regression fits directly on the graph.
+
+Export: Exporting high-resolution graphs to computers as SVG, LaTeX, or image formats.
+
+Real-Time Data Visualization: Interactive animation of 2D and 3D graphs where users can use sliders to modify variables.
+
+#4.4 Module 4: Statistics and Data Analysis
+Advanced Statistics: Probability distribution functions (normal, binomial, Poisson), hypothesis tests (t-test, ANOVA), and linear/multiple regression.
+
+Simulation and Inference: Sampling, bootstrapping, and Monte Carlo simulation.
+
+Visualization: Generation of histograms, boxplots, and cumulative distributions.
+
+Predictive Analysis: Uses lightweight machine learning models on locally imported time-series data to project future trends without needing the internet.
+
+#4.5 Module 5: Domain-Specific Simulators (Advanced)
+STEM Student Tools: Interactive modules for Kinematics, Chemistry Lab, Experimental Data Analysis, and Electronic Circuits.
+
+Physics & Engineering: Simulators for Control Systems (Bode plots), Basic Structural Analysis (FEA), Fluid Dynamics, Thermodynamics, and Geometric Optics.
+
+Chemistry & Biochemistry: Interactive Periodic Table, Stoichiometry Calculator, modules for Thermodynamics, Chemical Equilibrium (pH and titration simulation), and Chemical Kinetics. Includes a 3D molecular geometry viewer and a tool for drawing Lewis structures.
+
+Quantum Computing: Offline Qubit Simulator, quantum state visualizer, and Schrödinger Equation Solver. Supports quantum programming languages and, optionally, can connect to real quantum hardware via API keys managed by the user.
+
+#4.6 Module 6: Innovative and Creative Tools
+Generators: Interactive fractal generator (Mandelbrot, Julia sets), Digital Circuit Simulator, and a tool to convert mathematical equations into visual patterns and musical sequences.
+
+Simulators: Chaos and Dynamic Systems analysis (e.g., double pendulum), an Orbital Simulator, and a Particle System Creator.
+
+Editors: A tool that allows loading audio or image files and applying mathematical functions directly to the data.
+
+Geometry Viewer: A mode to explore non-Euclidean geometries (projective and hyperbolic).
+
+Formula-Based Audio Synthesizer: Users can write complex equations and see their waveform in real-time to create unique sounds.
+
+"Lego" of Algorithms: A visual drag-and-drop interface that allows users to build complex algorithms for data analysis, machine learning, or optimization without writing code.
+
+#4.7 Module 7: Platform, Community, and Integration
+Plugin System: An architecture for users to program and share custom C# plugins, with a dedicated offline plugin store for popular, pre-loaded extensions.
+
+Local Collaboration: Support for user profiles on the same device and P2P synchronization for secure collaboration on a local network.
+
+Hybrid Secure Collaboration: Users can choose to sync their projects via services like Dropbox or Google Drive. End-to-end encryption ensures files are unreadable in the cloud and privacy is maintained.
+
+System Integration: Global hotkey activation, a terminal/CLI mode for programmers, and File Context Processing to automatically import relevant data from open files.
+
+Project Management: A system to organize and save entire workspaces as single project files, surpassing the individual file approach of competitors.
+
+Hardware and Sensor Integration: An open SDK to connect to microcontrollers (like Arduino or Raspberry Pi) via USB or Bluetooth to log, graph, and analyze physical data in real-time.
+
+Integrated Community Ecosystem: A native forum for support, discussion, and collaboration.
+
+#4.8 Module 8: Absolute Supremacy Features
+Augmented Reality (AR) Integration: Users can view their 3D graphs or circuit models overlaid on the physical environment using the device's camera.
+
+AI Learning Mode (Personal Tutor): The local Gemma 3 4B model analyzes the user's error history to identify weaknesses in mathematical concepts. It then creates personalized exercises with instant feedback and step-by-step hints.
+
+Multimodal Computing: A feature that integrates different types of data. Users can take a photo of a graph for analysis or upload an engineering diagram to perform a basic structural analysis.
+
+#5. Deployment and Distribution
+Standalone Application: The entire application is a self-contained executable that requires no internet connection to run. All libraries and dependencies are bundled within the app.
+
+Linux Packaging: For distribution, the application will be packaged into standard Linux formats, such as .AppImage (universal), .deb (for Debian/Ubuntu), and .rpm (for Fedora/CentOS).
+
+No API or Hosting: The application runs entirely on the user's machine and does not communicate with any external servers for its core operation.
+
+#6. Easter Eggs (Hidden Features)
+Mystic Mode: Calculating Pi (π) to 128 decimal places unlocks a mode with philosophical quotes.
+
+The Secret Game: The Konami code (↑ ↑ ↓ ↓ ← → ← → B A) starts a classic game like Pong.
+
+The Sarcastic Equation: Entering an impossible equation (e.g., 1/0) returns a sarcastic error message like "Seriously? Try again."
