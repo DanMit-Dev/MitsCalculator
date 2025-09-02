@@ -3,7 +3,7 @@ using Avalonia.Interactivity;
 using System;
 using System.Globalization;
 using MathNet.Numerics;
-using NCalc;
+using NCalc2;
 using MITSCalculator.Core;
 using MITSCalculator.Views;
 using MITSCalculator.UI;
