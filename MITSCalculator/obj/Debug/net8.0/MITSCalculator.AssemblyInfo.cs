@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MITSCalculator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ed7529567dc1ff774b9731a7f6330542f301b01")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d006fce7330253e8c86adf967641880a119e28ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("MITSCalculator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MITSCalculator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
