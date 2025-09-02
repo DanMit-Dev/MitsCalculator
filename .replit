@@ -24,3 +24,7 @@ args = "cd MITSCalculator && dotnet run"
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[nix]
+channel = "stable-25_05"
+packages = ["fontconfig", "xorg.libX11", "xorg.libXrandr", "xorg.libXcursor", "xorg.libICE", "xorg.libSM", "xorg.libXext", "xorg.libXi", "mesa"]

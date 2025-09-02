@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/OnyQBThwwc=",
+  "dgSpecHash": "7jzrX9jTm8Q=",
   "success": true,
   "projectFilePath": "/home/runner/workspace/MITSCalculator/MITSCalculator.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,8 @@
     "/home/runner/.nuget/packages/microsoft.data.sqlite/9.0.8/microsoft.data.sqlite.9.0.8.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.data.sqlite.core/9.0.8/microsoft.data.sqlite.core.9.0.8.nupkg.sha512",
     "/home/runner/.nuget/packages/ncalc/1.3.8/ncalc.1.3.8.nupkg.sha512",
+    "/home/runner/.nuget/packages/oxyplot.avalonia/2.1.0/oxyplot.avalonia.2.1.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/oxyplot.core/2.1.0/oxyplot.core.2.1.0.nupkg.sha512",
     "/home/runner/.nuget/packages/skiasharp/2.88.9/skiasharp.2.88.9.nupkg.sha512",
     "/home/runner/.nuget/packages/skiasharp.nativeassets.linux/2.88.9/skiasharp.nativeassets.linux.2.88.9.nupkg.sha512",
     "/home/runner/.nuget/packages/skiasharp.nativeassets.macos/2.88.9/skiasharp.nativeassets.macos.2.88.9.nupkg.sha512",

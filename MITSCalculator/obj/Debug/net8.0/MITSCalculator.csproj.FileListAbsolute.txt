@@ -95,3 +95,5 @@
 /home/runner/workspace/MITSCalculator/obj/Debug/net8.0/MITSCalculator.pdb
 /home/runner/workspace/MITSCalculator/obj/Debug/net8.0/MITSCalculator.genruntimeconfig.cache
 /home/runner/workspace/MITSCalculator/obj/Debug/net8.0/ref/MITSCalculator.dll
+/home/runner/workspace/MITSCalculator/bin/Debug/net8.0/OxyPlot.Avalonia.dll
+/home/runner/workspace/MITSCalculator/bin/Debug/net8.0/OxyPlot.dll

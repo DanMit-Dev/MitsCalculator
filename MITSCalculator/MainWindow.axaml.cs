@@ -4,6 +4,8 @@ using System;
 using System.Globalization;
 using MathNet.Numerics;
 using NCalc;
+using MITSCalculator.Core;
+using MITSCalculator.Views;
 
 namespace MITSCalculator;
 
@@ -14,10 +16,17 @@ public partial class MainWindow : Avalonia.Controls.Window
     private string _operation = "";
     private bool _waitingForOperand = false;
     private string _expression = "";
+    private readonly MathEngine _mathEngine;
+    private readonly ExpressionParser _parser;
+    private CalculatorMode _currentMode = CalculatorMode.Standard;
+    private SpecializedModeView _modeView;
 
     public MainWindow()
     {
         InitializeComponent();
+        _mathEngine = new MathEngine();
+        _parser = new ExpressionParser(_mathEngine);
+        _modeView = new SpecializedModeView(_mathEngine);
         UpdateDisplay();
     }
 
@@ -81,16 +90,16 @@ public partial class MainWindow : Avalonia.Controls.Window
                 switch (function)
                 {
                     case "sin":
-                        result = Math.Sin(value * Math.PI / 180); // Convert to radians
+                        result = Math.Sin(value * Math.PI / 180);
                         break;
                     case "cos":
-                        result = Math.Cos(value * Math.PI / 180); // Convert to radians
+                        result = Math.Cos(value * Math.PI / 180);
                         break;
                     case "tan":
-                        result = Math.Tan(value * Math.PI / 180); // Convert to radians
+                        result = Math.Tan(value * Math.PI / 180);
                         break;
                     case "log":
-                        result = Math.Log10(value);
+                        result = _mathEngine.Log10(value);
                         break;
                     case "√":
                         result = Math.Sqrt(value);
@@ -123,7 +132,7 @@ public partial class MainWindow : Avalonia.Controls.Window
             switch (constant)
             {
                 case "π":
-                    _currentInput = Math.PI.ToString("G", CultureInfo.InvariantCulture);
+                    _currentInput = _mathEngine.GetConstant("π").ToString("G", CultureInfo.InvariantCulture);
                     break;
             }
             
